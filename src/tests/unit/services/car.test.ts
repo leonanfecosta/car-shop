@@ -1,6 +1,5 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
-import { Model } from 'mongoose';
 import CarModel from '../../../models/car.model';
 import CarService from '../../../services/car.service';
 import { ZodError } from 'zod';
