@@ -28,10 +28,17 @@ export default abstract class MongoModel<T> implements IModel<T> {
     if (!isValidObjectId(id)) {
       throw Error(ErrorTypes.InvalidMongoId);
     }
-    return this._model.findByIdAndUpdate(id, { ...obj as UpdateQuery<T> }, { new: true });
+    return this._model.findByIdAndUpdate(
+      id,
+      { ...(obj as UpdateQuery<T>) },
+      { new: true },
+    );
   }
 
   public async delete(id: string): Promise<T | null> {
+    if (!isValidObjectId(id)) {
+      throw Error(ErrorTypes.InvalidMongoId);
+    }
     return this._model.findByIdAndDelete(id);
   }
 }
