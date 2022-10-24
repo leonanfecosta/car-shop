@@ -4,7 +4,6 @@ import chai from 'chai';
 import CarModel from '../../../models/car.model';
 import CarService from '../../../services/car.service';
 import CarController from '../../../controllers/car.controller';
-import { ZodError } from 'zod';
 import { carMock, carMockWithId } from '../../mocks/car.mock';
 const { expect } = chai;
 
@@ -26,7 +25,7 @@ describe('Car Controller', () => {
 
   describe('create a new Car', () => {
     beforeEach(async () => {
-      sinon.stub(CarService.prototype, 'create').resolves(carMockWithId);
+      sinon.stub(carService, 'create').resolves(carMockWithId);
     });
     it('should create a new Car', async () => {
       req.body = carMock;
