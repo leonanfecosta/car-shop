@@ -5,7 +5,7 @@ export enum ErrorTypes {
 
 // esse é o tipo do objeto vai ser usado para onstruir a resposta da API
 type ErrorResponseObject = {
-  message: string;
+  error: string;
   httpStatus: number;
 };
 
@@ -13,11 +13,11 @@ export type ErrorCatalog = Record<ErrorTypes, ErrorResponseObject>;
 
 export const errorCatalog: ErrorCatalog = {
   EntityNotFound: {
-    message: 'Entity not found',
+    error: 'Object not found',
     httpStatus: 404,
   },
   InvalidMongoId: {
-    message: 'Id must be a 24 characters hexadecimal',
+    error: 'Id must have 24 hexadecimal characters',
     httpStatus: 400,
   },
 };
