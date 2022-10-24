@@ -25,7 +25,14 @@ describe('Car Service', () => {
       .onCall(0)
       .resolves(carMockWithId)
       .onCall(1)
-      .resolves(null)
+      .resolves(null);
+
+    sinon
+      .stub(carModel, 'delete')
+      .onCall(0)
+      .resolves(carMockWithId)
+      .onCall(1)
+      .resolves(null);
   });
 
   after(async () => {
@@ -94,6 +101,24 @@ describe('Car Service', () => {
       let error: any;
       try {
         await carService.update('invalidId', carMock);
+      } catch (err) {
+        error = err;
+      }
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
+    });
+  });
+
+  describe('deleting a car', () => {
+    it('should delete a car', async () => {
+      const car = await carService.delete(carMockWithId._id);
+      expect(car).to.be.deep.equal(carMockWithId);
+    });
+
+    it('should throw a Error', async () => {
+      let error: any;
+      try {
+        await carService.delete('invalidId');
       } catch (err) {
         error = err;
       }
