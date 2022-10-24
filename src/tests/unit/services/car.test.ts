@@ -20,6 +20,12 @@ describe('Car Service', () => {
       .resolves(carMockWithId)
       .onCall(1)
       .resolves(null);
+    sinon
+      .stub(carModel, 'update')
+      .onCall(0)
+      .resolves(carMockWithId)
+      .onCall(1)
+      .resolves(null)
   });
 
   after(async () => {
@@ -60,6 +66,34 @@ describe('Car Service', () => {
       let error: any;
       try {
         await carService.readOne('invalidId');
+      } catch (err) {
+        error = err;
+      }
+      expect(error).to.be.instanceOf(Error);
+      expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
+    });
+  });
+
+  describe('updating a car', () => {
+    it('should update a car', async () => {
+      const car = await carService.update(carMockWithId._id, carMock);
+      expect(car).to.be.deep.equal(carMockWithId);
+    });
+
+    it('should throw a ZodError', async () => {
+      let error: any;
+      try {
+        await carService.update('any-id', { INVALID: 'OBJECT' });
+      } catch (err) {
+        error = err;
+      }
+      expect(error).to.be.instanceOf(ZodError);
+    });
+
+    it('should throw a Error', async () => {
+      let error: any;
+      try {
+        await carService.update('invalidId', carMock);
       } catch (err) {
         error = err;
       }
