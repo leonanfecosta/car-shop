@@ -1,6 +1,6 @@
 # Projeto Car Shop 
 
-Consiste em uma API para gerenciar de uma concessionária de veículos. 
+Consiste em uma API para o gerenciamento de uma concessionária de veículos. 
 
 * Construída com Node.js, Express, Typescript, MongoDB, Docker e Zod
 * Utilizando os princípios SOLID e Programação Orientada a Objetos
